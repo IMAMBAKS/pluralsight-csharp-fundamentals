@@ -1,6 +1,7 @@
 using System;
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace GradeBook
@@ -72,7 +73,23 @@ namespace GradeBook
             }
         }
         private List<double> grades;
-        public string Name;
+        private string _name;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException();
+                }
+            }
+        }
     }
 
 }
