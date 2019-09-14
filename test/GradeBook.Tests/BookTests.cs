@@ -24,5 +24,23 @@ namespace GradeBook.Tests
             Assert.Equal(20, result.Low);
 
         }
+
+        [Fact]
+        public void GradeShouldBeValid()
+        {
+            // arrange
+            var book = new Book("Scott");
+            book.AddGrade(20);
+            book.AddGrade(-100);
+            book.AddGrade(1000);
+            
+            // act
+            var result = book.GetStatistics();
+
+            // assert
+            Assert.Equal(20, result.Average);
+            Assert.Equal(20, result.High);
+            Assert.Equal(20, result.Low);
+        }
     }
 }
