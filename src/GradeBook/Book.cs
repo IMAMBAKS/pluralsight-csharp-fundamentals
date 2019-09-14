@@ -23,7 +23,7 @@ namespace GradeBook
             }
             else
             {
-                Console.WriteLine("Invalid Value");
+                throw new ArgumentException($"Invalid {nameof(grade)}");
             }
 
         }
@@ -42,8 +42,34 @@ namespace GradeBook
 
             result.Average /= grades.Count;
 
+            result.Letter = GetLetterFromAverageGrade(result.Average);
+            
+
             return result;
 
+        }
+
+        public char GetLetterFromAverageGrade(double grade)
+        {
+            switch (grade)
+            {
+                case var d when d >= 90:
+                    return 'A';
+                    break;
+                
+                case var d when d >= 80:
+                    return 'B';
+                    break;
+
+                case var d when d >= 70:
+                    return 'C';
+                    break;
+                case var d when d >= 60:
+                    return 'D';
+                    break;
+                default:
+                    return 'F';
+            }
         }
         private List<double> grades;
         public string Name;
