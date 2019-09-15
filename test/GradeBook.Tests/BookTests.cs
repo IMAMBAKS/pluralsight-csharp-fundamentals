@@ -10,7 +10,7 @@ namespace GradeBook.Tests
         {
 
             // arrange
-            var book = new Book("Scott");
+            var book = new InMemoryBook("Scott");
             book.AddGrade(30);
             book.AddGrade(20);
             book.AddGrade(40);
@@ -30,7 +30,7 @@ namespace GradeBook.Tests
         public void GradeShouldBeValid()
         {
             // arrange
-            var book = new Book("Scott");
+            var book = new InMemoryBook("Scott");
             book.AddGrade(20);
             book.AddGrade(-100);
             book.AddGrade(1000);

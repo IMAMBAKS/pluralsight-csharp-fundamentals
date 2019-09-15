@@ -20,9 +20,9 @@ namespace GradeBook.Tests
 
         }
 
-        private void SetName(Book book, string name)
+        private void SetName(InMemoryBook inMemoryBook, string name)
         {
-            book.Name = name;
+            inMemoryBook.Name = name;
         }
 
         [Fact]
@@ -40,9 +40,9 @@ namespace GradeBook.Tests
 
         }
 
-        private Book GetBook(string name)
+        private InMemoryBook GetBook(string name)
         {
-            return new Book(name);
+            return new InMemoryBook(name);
         }
     }
 }
