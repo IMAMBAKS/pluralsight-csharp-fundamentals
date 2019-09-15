@@ -1,6 +1,6 @@
 namespace GradeBook
 {
-    public class DiskBook: Book, IBook
+    public class DiskBook: Book
     {
         public DiskBook(string name): base(name)
         {
