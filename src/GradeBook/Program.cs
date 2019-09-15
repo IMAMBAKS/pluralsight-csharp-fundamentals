@@ -9,9 +9,6 @@ namespace GradeBook
         {
             var book = new Book("Scott");
             book.GradeAdded += onGradeAdded;
-
-            Console.WriteLine("Please enter the grades: ");
-
             EnterGrades(book);
 
             static void onGradeAdded(object sender, EventArgs e)
@@ -30,6 +27,7 @@ namespace GradeBook
 
         private static void EnterGrades(Book book)
         {
+            Console.WriteLine("Please enter the grades: ");
             while (true)
             {
                 var input = Console.ReadLine();

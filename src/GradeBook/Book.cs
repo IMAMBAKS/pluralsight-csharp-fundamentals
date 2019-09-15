@@ -1,27 +1,24 @@
 using System;
-
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace GradeBook
 {
-  public delegate void GradeAddedDelegate(object sender, EventArgs args);
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
 
-  public class NamedObject()
-  {
-      public NamedObject(string name)
-      {
-          Name = name;
-      }
-
-      public string Name { get; set; }
-  }
-    
-    public class Book: NamedObject
+    public class NamedObject
     {
+        public NamedObject(string name)
+        {
+            Name = name;
+        }
 
-        public Book(string name): base(name)
+        public string Name { get; set; }
+    }
+
+    public class Book : NamedObject
+    {
+        public Book(string name) : base(name)
         {
             grades = new List<double>();
             Name = name;
@@ -29,26 +26,24 @@ namespace GradeBook
 
         public void AddGrade(double grade)
         {
-
             if (grade <= 100 && grade >= 0)
             {
                 grades.Add(grade);
                 if (GradeAdded != null)
                 {
-                 GradeAdded(this, new EventArgs());   
+                    GradeAdded(this, new EventArgs());
                 }
             }
             else
             {
                 throw new ArgumentException($"Invalid {nameof(grade)}");
             }
-
         }
 
         public event GradeAddedDelegate GradeAdded;
+
         public Statistics GetStatistics()
         {
-
             var result = new Statistics {Average = 0.0, Low = double.MaxValue, High = double.MinValue};
 
             foreach (var grade in grades)
@@ -62,10 +57,9 @@ namespace GradeBook
             result.Average /= grades.Count;
 
             result.Letter = GetLetterFromAverageGrade(result.Average);
-            
+
 
             return result;
-
         }
 
         public char GetLetterFromAverageGrade(double grade)
@@ -75,7 +69,7 @@ namespace GradeBook
                 case var d when d >= 90:
                     return 'A';
                     break;
-                
+
                 case var d when d >= 80:
                     return 'B';
                     break;
@@ -90,6 +84,7 @@ namespace GradeBook
                     return 'F';
             }
         }
+
         private List<double> grades;
         private string _name;
 
@@ -109,5 +104,4 @@ namespace GradeBook
             }
         }
     }
-
 }
