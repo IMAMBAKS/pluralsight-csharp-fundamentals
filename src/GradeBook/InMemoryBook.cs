@@ -31,12 +31,8 @@ namespace GradeBook
         }
 
         public abstract void AddGrade(double grade);
-        public virtual Statistics GetStatistics()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual event GradeAddedDelegate GradeAdded;
+        public abstract Statistics GetStatistics();
+        public abstract event GradeAddedDelegate GradeAdded;
     }
 
     public class InMemoryBook : Book, IBook

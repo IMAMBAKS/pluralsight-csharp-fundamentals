@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace GradeBook
 {
     public class DiskBook: Book
@@ -9,7 +12,27 @@ namespace GradeBook
 
         public override void AddGrade(double grade)
         {
-            throw new System.NotImplementedException();
+            string fileName = $"{Name}.txt";
+            string basePath = $"/home/imambaks/gradebook/{fileName}";
+            string path = @basePath;
+                
+            
+            if (!File.Exists(path)) 
+            {
+                // Create a file to write to.
+                File.Create(path);
+            }
+            using (StreamWriter sw = File.AppendText(path)) 
+            {
+                if (grade <= 100 && grade >= 0)
+                {
+                   sw.WriteLine(grade);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
         }
 
         public override Statistics GetStatistics()
@@ -18,6 +41,6 @@ namespace GradeBook
         }
 
         public string Name { get; }
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate GradeAdded;
     }
 }
