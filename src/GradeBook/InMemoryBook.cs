@@ -64,46 +64,10 @@ namespace GradeBook
 
         public override Statistics GetStatistics()
         {
-            var result = new Statistics {Average = 0.0, Low = double.MaxValue, High = double.MinValue};
+            return new Statistics(0.0,double.MaxValue,double.MinValue, grades);
 
-            foreach (var grade in grades)
-
-            {
-                result.Low = Math.Min(grade, result.Low);
-                result.High = Math.Max(grade, result.High);
-                result.Average += grade;
-            }
-
-            result.Average /= grades.Count;
-
-            result.Letter = GetLetterFromAverageGrade(result.Average);
-
-
-            return result;
         }
 
-        public char GetLetterFromAverageGrade(double grade)
-        {
-            switch (grade)
-            {
-                case var d when d >= 90:
-                    return 'A';
-                    break;
-
-                case var d when d >= 80:
-                    return 'B';
-                    break;
-
-                case var d when d >= 70:
-                    return 'C';
-                    break;
-                case var d when d >= 60:
-                    return 'D';
-                    break;
-                default:
-                    return 'F';
-            }
-        }
 
         private List<double> grades;
         private string _name;

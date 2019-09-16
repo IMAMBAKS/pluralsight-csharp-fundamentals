@@ -1,32 +1,37 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GradeBook
 {
-    public class DiskBook: Book
+    public class DiskBook : Book
     {
-        public DiskBook(string name): base(name)
+        private string Path;
+
+        public DiskBook(string name) : base(name)
         {
             Name = name;
+            var fileName = $"{Name}.txt";
+            var basePath = $"/home/imambaks/gradebook/{fileName}";
+            Path = @basePath;
         }
 
         public override void AddGrade(double grade)
         {
-            string fileName = $"{Name}.txt";
-            string basePath = $"/home/imambaks/gradebook/{fileName}";
-            string path = @basePath;
-                
-            
-            if (!File.Exists(path)) 
+            if (!File.Exists(Path))
             {
                 // Create a file to write to.
-                File.Create(path);
+                using (var fs = File.Create(Path))
+                {
+                    
+                }
             }
-            using (StreamWriter sw = File.AppendText(path)) 
+
+            using (StreamWriter sw = File.AppendText(Path))
             {
                 if (grade <= 100 && grade >= 0)
                 {
-                   sw.WriteLine(grade);
+                    sw.WriteLine(grade);
                 }
                 else
                 {
@@ -37,10 +42,23 @@ namespace GradeBook
 
         public override Statistics GetStatistics()
         {
-            throw new System.NotImplementedException();
+            if (!File.Exists(Path)) return null;
+            
+            var grades = new List<double>();
+            using (StreamReader sr = new StreamReader(Path))
+
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    grades.Add(double.Parse(line));
+                }
+
+            } 
+            return new Statistics(0.0, double.MaxValue, double.MinValue, grades);
+
         }
 
-        public string Name { get; }
         public override event GradeAddedDelegate GradeAdded;
     }
 }
